@@ -1,6 +1,6 @@
 import range from 'lodash/range';
 
-import { INIT_GAME, CLICK_CELL } from '../actions/game';
+import { INIT_GAME, RESET_GAME, CLICK_CELL } from '../actions/game';
 import GameLogic from '../config/GameLogic';
 
 const INITIAL_STATE = {
@@ -15,22 +15,22 @@ export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case INIT_GAME: {
       const { rows, cols, players } = action.payload;
-      const grid = {};
-      range(rows).forEach(rowIdx => {
-        const row = {};
-        range(cols).forEach(colIdx => {
-          row[colIdx] = {
-            player: -1,
-            clicked: 0,
-          };
-        });
-        grid[rowIdx] = row;
-      });
+      const grid = createEmptyGrid(rows, cols);
+
       return {
         grid,
         rows,
         cols,
         players,
+        currentPlayer: 0,
+      };
+    }
+    case RESET_GAME: {
+      const grid = createEmptyGrid(state.rows, state.cols);
+
+      return {
+        ...state,
+        grid,
         currentPlayer: 0,
       };
     }
@@ -51,3 +51,19 @@ export default function (state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+const createEmptyGrid = (rows, cols) => {
+  const grid = {};
+  range(rows).forEach(rowIdx => {
+    const row = {};
+    range(cols).forEach(colIdx => {
+      row[colIdx] = {
+        player: -1,
+        clicked: 0,
+      };
+    });
+    grid[rowIdx] = row;
+  });
+
+  return grid;
+};

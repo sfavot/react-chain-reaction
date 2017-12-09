@@ -1,4 +1,5 @@
 export const INIT_GAME = 'INIT_GAME';
+export const RESET_GAME = 'RESET_GAME';
 export const CLICK_CELL = 'CLICK_CELL';
 
 const ROWS = 8;
@@ -20,6 +21,12 @@ export const initGame = (rows = ROWS, cols = COLS, players = PLAYERS) => {
       cols,
       players,
     }
+  };
+};
+
+export const resetGame = () => {
+  return {
+    type: RESET_GAME,
   };
 };
 

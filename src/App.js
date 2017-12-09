@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 import GameGrid from './components/GameGrid';
-import { initGame } from './actions/game';
+import { resetGame } from './actions/game';
 
 class App extends Component {
   render() {
@@ -31,7 +31,7 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     reset: () => {
-      dispatch(initGame());
+      dispatch(resetGame());
     },
   };
 }
