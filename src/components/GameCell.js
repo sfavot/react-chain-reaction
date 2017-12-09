@@ -18,14 +18,17 @@ const baseCellStyle = {
   verticalAlign: 'bottom',
 };
 
-const GameCell = ({clickCell, x, y, status, players, currentPlayer, clicksToBlow}) => {
+const GameCell = ({
+  clickCell, x, y, status, players, currentPlayer, clicksToBlow,
+  gameEnded,
+}) => {
   const cellStyle = {...baseCellStyle};
   if (!!currentPlayer) {
     cellStyle.borderColor = currentPlayer.color;
   }
 
   return (
-    <div onClick={clickCell} style={cellStyle}>
+    <div onClick={gameEnded ? null : clickCell} style={cellStyle}>
       {status.player !== -1
         ? <Ball
           color={players[status.player].color}
@@ -56,13 +59,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { rows, cols, players, grid, currentPlayer } = state.game;
+  const { rows, cols, players, grid, currentPlayer, gameEnded } = state.game;
   const logic = new GameLogic(rows, cols, players, grid);
   return {
     status: grid[ownProps.x][ownProps.y],
     players: players,
     currentPlayer: currentPlayer === -1 ? null : players[currentPlayer],
     clicksToBlow: logic.cellWillBlowIn(ownProps.x, ownProps.y),
+    gameEnded,
   };
 }
 

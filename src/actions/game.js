@@ -2,14 +2,16 @@ export const INIT_GAME = 'INIT_GAME';
 export const RESET_GAME = 'RESET_GAME';
 export const CLICK_CELL = 'CLICK_CELL';
 
-const ROWS = 8;
-const COLS = 6;
+const ROWS = 4;
+const COLS = 4;
 const PLAYERS = [
   {
     color: 'red',
+    alive: true,
   },
   {
     color: '#1EF127',
+    alive: true,
   },
 ];
 

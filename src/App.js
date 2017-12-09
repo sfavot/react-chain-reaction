@@ -15,7 +15,10 @@ class App extends Component {
           <h1 className="App-title">Welcome to React Chain Reaction</h1>
         </header>
         <p className="App-intro">
-          To get started, click on a tile.
+          {this.props.gameEnded
+            ? <span>{`Player ${this.props.currentPlayer + 1} won!`}</span>
+            : <span>{`Player ${this.props.currentPlayer + 1} turn.`}</span>
+          }
         </p>
         <GameGrid />
         <div className="App-footer">
@@ -36,4 +39,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    currentPlayer: state.game.currentPlayer,
+    gameEnded: state.game.gameEnded,
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

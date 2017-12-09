@@ -1,3 +1,5 @@
+import range from 'lodash/range';
+
 export default class GameLogic {
   constructor(rows, cols, players, grid) {
     this.rows = rows;
@@ -7,23 +9,43 @@ export default class GameLogic {
     this.currentPlayer = -1;
     this.x = -1;
     this.y = -1;
+    this.turn = 0;
+    this.cellsActivated = 0;
   };
 
-  playTurn = (x, y, currentPlayer) => {
+  playTurn = (x, y, currentPlayer, turn) => {
     this.currentPlayer = currentPlayer;
     this.x = x;
     this.y = y;
+    this.turn = turn;
 
     this.play();
 
     return {
       grid: this.grid,
       currentPlayer: this.currentPlayer,
+      gameEnded: this.hasGameEnded(),
+      players: this.players,
+      turn: this.turn
     };
   }
 
   getNextPlayer = () => {
-    return this.currentPlayer >= this.players - 1 ? 0 : this.currentPlayer + 1;
+    if (this.hasGameEnded()) {
+      return this.currentPlayer;
+    }
+
+    let next = null;
+    do {
+      if (this.currentPlayer < this.players.length - 1) {
+        next = this.currentPlayer + 1;
+        continue;
+      }
+      this.turn++;
+      next = 0;
+    } while (!this.players[next].alive);
+
+    return next;
   };
 
   play = () => {
@@ -36,11 +58,26 @@ export default class GameLogic {
 
     this.activateCell(this.x, this.y);
 
+    // we check who's dead
+    if (this.turn > 0) {
+      const alivePlayers = this.getAlivePlayers();
+
+      this.players.forEach((player, index) => {
+        if (alivePlayers.indexOf(index) < 0) {
+          player.alive = false;
+        };
+      });
+    }
+
     // something actually happened so we change the player
     this.currentPlayer = this.getNextPlayer();
   }
 
   activateCell = (x, y) => {
+    if (this.cellsActivated > 100) {
+      return;
+    }
+
     // If cell is not gonna blow we just increase clicks number
     if (this.cellWillBlowIn(x, y) > 1) {
       this.increaseCellClicks(x, y);
@@ -60,6 +97,8 @@ export default class GameLogic {
   };
 
   blowCell = (x, y) => {
+    this.cellsActivated++;
+
     // blow current cell
     this.grid[x][y] = {
       player: -1,
@@ -138,5 +177,24 @@ export default class GameLogic {
     }
 
     return cells;
+  }
+
+  hasGameEnded = () => {
+    return this.turn > 0 && this.getAlivePlayers().length === 1;
+  }
+
+  getAlivePlayers = () => {
+    const alive = [];
+
+    range(this.rows).forEach(row => {
+      range(this.cols).forEach(col => {
+        const player = this.grid[row][col].player;
+        if (player > -1 && alive.indexOf(player) < 0) {
+          alive.push(player);
+        }
+      });
+    });
+
+    return alive;
   }
 }

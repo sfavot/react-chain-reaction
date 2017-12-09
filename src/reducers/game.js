@@ -9,6 +9,8 @@ const INITIAL_STATE = {
   players: [],
   rows: 0,
   cols: 0,
+  turn: 0,
+  gameEnded: false,
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -23,28 +25,41 @@ export default function (state = INITIAL_STATE, action) {
         cols,
         players,
         currentPlayer: 0,
+        turn: 0,
+        gameEnded: false,
       };
     }
     case RESET_GAME: {
       const grid = createEmptyGrid(state.rows, state.cols);
+      const players = {...state.players};
+      players.forEach(player => {
+        player.alive = true;
+      });
 
       return {
         ...state,
         grid,
         currentPlayer: 0,
+        players: players,
+        turn: 0,
+        gameEnded: false,
       };
     }
     case CLICK_CELL: {
       const { x, y } = action.payload;
-      const { currentPlayer, rows, cols, players, grid } = state;
+      const { currentPlayer, rows, cols, players, grid, turn } = state;
 
-      const logic = new GameLogic(rows, cols, players.length, grid);
-      const newState = logic.playTurn(x, y, currentPlayer);
+      if (!state.gameEnded) {
+        const logic = new GameLogic(rows, cols, players, grid);
+        const newState = logic.playTurn(x, y, currentPlayer, turn);
 
-      return {
-        ...state,
-        ...newState,
-      };
+        return {
+          ...state,
+          ...newState,
+        };
+      }
+
+      return state;
 
     }
     default:
