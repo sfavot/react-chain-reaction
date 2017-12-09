@@ -95,41 +95,43 @@ class GameSettings extends React.Component {
 
   render() {
     return (
-      <div className="settings">
-        <div className="form-group">
-          <label htmlFor="rows">Rows</label>
-          <input
-            onChange={this.changeRows}
-            name="rows"
-            type="number"
-            min="3"
-            max="10"
-            value={this.state.rows}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="cols">Cols</label>
-          <input
-            onChange={this.changeCols}
-            name="cols"
-            type="number"
-            min="3"
-            max="10"
-            value={this.state.cols}
-          />
-        </div>
-        {this.state.players.map((player, index) => (
-          <div key={`player-${index}`} className="form-group">
-            <label htmlFor={`player-${index}`}>Player {index + 1}</label>
+      <div className={`settings ${this.props.show ? 'visible' : ''}`}>
+        <div className="form">
+          <div className="form-group">
+            <label htmlFor="rows">Rows</label>
             <input
-              onChange={this.changePlayerColor(index)}
-              name={`player-${index}`}
-              type="color"
-              value={player.color}
+              onChange={this.changeRows}
+              name="rows"
+              type="number"
+              min="3"
+              max="10"
+              value={this.state.rows}
             />
-            {this.state.players.length > 2 && <button onClick={this.removePlayer(index)}>Remove</button>}
           </div>
-        ))}
+          <div className="form-group">
+            <label htmlFor="cols">Cols</label>
+            <input
+              onChange={this.changeCols}
+              name="cols"
+              type="number"
+              min="3"
+              max="10"
+              value={this.state.cols}
+            />
+          </div>
+          {this.state.players.map((player, index) => (
+            <div key={`player-${index}`} className="form-group">
+              <label htmlFor={`player-${index}`}>Player {index + 1}</label>
+              <input
+                onChange={this.changePlayerColor(index)}
+                name={`player-${index}`}
+                type="color"
+                value={player.color}
+              />
+              {this.state.players.length > 2 && <button onClick={this.removePlayer(index)}>Remove</button>}
+            </div>
+          ))}
+        </div>
         {this.state.players.length < 6 && <button onClick={this.addPlayer}>Add a player</button>}
         <p>Changing the settings will reset the game.</p>
         <button onClick={this.changeSettings}>Save</button>

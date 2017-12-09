@@ -20,15 +20,78 @@
 }
 
 .App-settings {
+  margin-bottom: 40px;
+}
+
+.settings-wrapper {
+  background-color: #d6d7d8;
+  border-bottom: 2px solid grey;
   padding: 20px;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 .settings {
-  margin-top: 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
+}
+
+.settings.visible {
+  max-height: 500px;
+  transition: max-height 0.25s ease-in;
+}
+
+.victory {
+  font-size: 1.5em;
+}
+
+.form {
+  padding-top: 20px;
+}
+
+.form-group {
+  padding: 10px;
+}
+
+.form-group label {
+  margin-right: 15px;
+}
+
+.form-group button {
+  margin-left: 15px;
+}
+
+input[type=number] {
+  padding: 5px;
+  font-size: 1em;
+  font-weight: 400;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+input[type=color] {
+  padding: 0;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+.settings-toggle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid grey;
+  position: absolute;
+  left: 48%;
+  cursor: pointer;
 }
 
 .App-intro {
   font-size: large;
+  margin-top: 20px;
 }
 
 @keyframes App-logo-spin {
@@ -38,4 +101,13 @@
 
 .App-footer {
   padding: 20px;
+}
+
+button {
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  background-color: grey;
+  padding: 8px 12px;
+  font-size: 1em;
 }

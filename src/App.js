@@ -14,7 +14,12 @@ class App extends React.Component {
   };
 
   toggleSettings = () => {
-    this.setState({showSettings: !this.state.showSettings})
+    const value = !this.state.showSettings;
+    this.setState({showSettings: value}, () => {
+      if (value) {
+        this.settings.scrollIntoView();
+      }
+    })
   };
 
   render() {
@@ -24,15 +29,16 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React Chain Reaction</h1>
         </header>
-        <div className="App-settings">
-          <button onClick={this.toggleSettings}>
-            {this.state.showSettings ? 'Hide settings' : 'Show settings'}
-          </button>
-          {this.state.showSettings && <GameSettings />}
+        <div ref={x => this.settings = x} className="App-settings">
+          <div className="settings-wrapper">
+            <h2 className="no-margin">Settings</h2>
+            <GameSettings show={this.state.showSettings} />
+          </div>
+          <div onClick={this.toggleSettings} className="settings-toggle" />
         </div>
         <p className="App-intro">
           {this.props.gameEnded
-            ? <span>{`Player ${this.props.currentPlayer + 1} won!`}</span>
+            ? <span className="victory">{`Player ${this.props.currentPlayer + 1} won!`}</span>
             : <span>{`Player ${this.props.currentPlayer + 1} turn.`}</span>
           }
         </p>
