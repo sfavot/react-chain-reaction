@@ -27,13 +27,13 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div className="App-logo">
-            <Ball color="#FF0000" clicksToBlow={3} />
+            <Ball color="#FF0000" clicksToBlow={3} className="large-ball" />
           </div>
           <div className="App-logo">
-            <Ball color="#1EF127" clicksToBlow={3} />
+            <Ball color="#1EF127" clicksToBlow={3} className="large-ball" />
           </div>
           <div className="App-logo">
-            <Ball color="#0099ff" clicksToBlow={3} />
+            <Ball color="#0099ff" clicksToBlow={3} className="large-ball" />
           </div>
           <h1 className="App-title">Welcome to React Chain Reaction</h1>
         </header>

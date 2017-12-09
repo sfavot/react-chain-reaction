@@ -6,6 +6,13 @@
 .App-logo {
   display: inline-block;
   animation: App-logo-spin infinite 3s linear;
+  width: 60px;
+  height: 60px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .App-header {
@@ -116,16 +123,67 @@ input[type=color] {
 .ball {
   display: block;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 50%;
+  width: 50%;
   min-height: 20px;
   min-width: 20px;
-  margin: 10px 10px;
+  margin: 25% 25%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.medium-ball {
+  height: 60%;
+  width: 60%;
+  margin: 20% 20%;
+}
+
+.large-ball {
+  height: 70%;
+  width: 70%;
+  margin: 15% 15%;
+}
+
+.shaking {
+  animation-name: shake;
+	animation-duration: 3s;
+	transform-origin:50% 50%;
+	animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.shaking-more {
+  animation-name: shakemore;
+	animation-duration: 0.6s;
+	transform-origin:50% 50%;
+	animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes shake {
+  0% { transform: translate(2px, 1px) rotate(0deg); }
+	10% { transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { transform: translate(-3px, 0px) rotate(1deg); }
+	30% { transform: translate(0px, 2px) rotate(0deg); }
+	40% { transform: translate(1px, -1px) rotate(1deg); }
+	50% { transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { transform: translate(-3px, 1px) rotate(0deg); }
+	70% { transform: translate(2px, 1px) rotate(-1deg); }
+	80% { transform: translate(-1px, -1px) rotate(1deg); }
+	90% { transform: translate(2px, 2px) rotate(0deg); }
+	100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes shakemore {
+  0% { transform: translate(4px, 2px) rotate(0deg); }
+	10% { transform: translate(-2px, -4px) rotate(-1deg); }
+	20% { transform: translate(-6px, 0px) rotate(1deg); }
+	30% { transform: translate(0px, 4px) rotate(0deg); }
+	40% { transform: translate(2px, -2px) rotate(1deg); }
+	50% { transform: translate(-2px, 4px) rotate(-1deg); }
+	60% { transform: translate(-6px, 2px) rotate(0deg); }
+	70% { transform: translate(4px, 2px) rotate(-1deg); }
+	80% { transform: translate(-2px, -2px) rotate(1deg); }
+	90% { transform: translate(4px, 4px) rotate(0deg); }
+	100% { transform: translate(2px, -4px) rotate(-1deg); }
 }
 
 .App-footer {

@@ -1,27 +1,34 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import tinycolor from 'tinycolor2';
 
-const Ball = ({color, clicksToBlow}) => {
+const Ball = ({color, clicksToBlow, className}) => {
   const ballStyle = {
     background: `radial-gradient(circle at 30% 30%, ${color}, black)`,
   };
 
-  if (clicksToBlow === 2) {
-    const gradientColor = tinycolor(color).darken(20).toString();
-    ballStyle.background = `radial-gradient(circle at 30% 30%, ${gradientColor}, ${color})`;
-  } else if (clicksToBlow === 1) {
-    ballStyle.background = `radial-gradient(circle at 80% 80%, yellow, ${color})`;
+  let classes = 'ball';
+  if (!className) {
+    if (clicksToBlow === 1) {
+      classes += ' shaking-more large-ball';
+    } else if (clicksToBlow === 2) {
+      classes += ' shaking medium-ball';
+    }
+  } else {
+    classes += ` ${className}`;
   }
 
   return (
-    <figure className="ball" style={ballStyle}></figure>
+    <figure
+      className={classes}
+      style={ballStyle}
+    />
   );
 };
 
 Ball.propTypes = {
   color: PropTypes.string,
   clicksToBlow: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default Ball;
