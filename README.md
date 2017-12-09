@@ -10,7 +10,7 @@ What else can be done:
  - Optimize for mobile
  - Add animations when a ball blow
  - Maybe add some sounds
- - Use redux-persist instead of local-storage
+ - Use redux-persist instead of local storage
  - Make it an app with react native
  - Remote playing
  - AI
