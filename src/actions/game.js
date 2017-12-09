@@ -6,7 +6,7 @@ const ROWS = 4;
 const COLS = 4;
 const PLAYERS = [
   {
-    color: 'red',
+    color: '#FF0000',
     alive: true,
   },
   {

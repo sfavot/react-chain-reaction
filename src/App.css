@@ -19,6 +19,14 @@
   font-size: 1.5em;
 }
 
+.App-settings {
+  padding: 20px;
+}
+
+.settings {
+  margin-top: 20px;
+}
+
 .App-intro {
   font-size: large;
 }
