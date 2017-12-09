@@ -4,20 +4,29 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/es/integration/react';
+import keys from 'lodash/keys';
 
 import configureStore from './config/store';
 import { initGame } from './actions/game';
 
-const { store, persistor } = configureStore();
+const persistedState =
+  localStorage.getItem('reduxState')
+  ? JSON.parse(localStorage.getItem('reduxState'))
+  : {}
+;
+const store = configureStore(persistedState);
 
-store.dispatch(initGame());
+store.subscribe(() => {
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+});
+
+if (!keys(persistedState).length) {
+  store.dispatch(initGame());
+}
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <App />
-      </PersistGate>
-    </Provider>
+    <App />
+  </Provider>
   , document.getElementById('root'));
 registerServiceWorker();

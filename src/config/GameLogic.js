@@ -1,15 +1,13 @@
 import range from 'lodash/range';
+import keys from 'lodash/keys';
 
 export default class GameLogic {
   constructor(rows, cols, players, grid) {
     this.rows = rows;
     this.cols = cols;
     this.currentPlayer = -1;
-
-    // Those need to be recreated to make sure it's immutable
-    this.players = players;
-    this.grid = grid;
-
+    this.players = this.refreshPlayers(players);
+    this.grid = this.refreshGrid(grid);
     this.x = -1;
     this.y = -1;
     this.turn = 0;
@@ -59,6 +57,7 @@ export default class GameLogic {
       return;
     }
 
+    this.turnPlayed = true;
     this.activateCell(this.x, this.y);
 
     // we check who's dead
@@ -202,5 +201,29 @@ export default class GameLogic {
     });
 
     return alive;
+  }
+
+  refreshGrid = (oldGrid) => {
+    const grid = {};
+    keys(oldGrid).forEach(row => {
+      keys(oldGrid[row]).forEach(col => {
+        const cell = oldGrid[row][col];
+        if (!grid[row]) {
+          grid[row] = {};
+        }
+        grid[row][col] = { ...cell };
+      });
+    });
+
+    return grid;
+  };
+
+  refreshPlayers = (oldPlayers) => {
+    const players = [];
+    oldPlayers.forEach(player => {
+      players.push({ ...player });
+    });
+
+    return players;
   }
 }

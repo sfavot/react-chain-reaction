@@ -1,4 +1,5 @@
 import range from 'lodash/range';
+import undoable from 'redux-undo';
 
 import { INIT_GAME, RESET_GAME, CLICK_CELL } from '../actions/game';
 import GameLogic from '../config/GameLogic';
@@ -13,7 +14,35 @@ const INITIAL_STATE = {
   gameEnded: false,
 };
 
-export default function (state = INITIAL_STATE, action) {
+const createEmptyGrid = (rows, cols) => {
+  const grid = {};
+  range(rows).forEach(rowIdx => {
+    const row = {};
+    range(cols).forEach(colIdx => {
+      row[colIdx] = {
+        player: -1,
+        clicked: 0,
+      };
+    });
+    grid[rowIdx] = row;
+  });
+
+  return grid;
+};
+
+const ressucitatePlayers = (players) => {
+  const newPlayers = [];
+  players.forEach(player => {
+    newPlayers.push({
+      color: player.color,
+      alive: true,
+    });
+  });
+
+  return newPlayers;
+}
+
+const game = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INIT_GAME: {
       const { rows, cols, players } = action.payload;
@@ -31,10 +60,7 @@ export default function (state = INITIAL_STATE, action) {
     }
     case RESET_GAME: {
       const grid = createEmptyGrid(state.rows, state.cols);
-      const players = state.players;
-      players.forEach(player => {
-        player.alive = true;
-      });
+      const players = ressucitatePlayers(state.players);
 
       return {
         ...state,
@@ -65,20 +91,9 @@ export default function (state = INITIAL_STATE, action) {
     default:
       return state;
   }
-}
-
-const createEmptyGrid = (rows, cols) => {
-  const grid = {};
-  range(rows).forEach(rowIdx => {
-    const row = {};
-    range(cols).forEach(colIdx => {
-      row[colIdx] = {
-        player: -1,
-        clicked: 0,
-      };
-    });
-    grid[rowIdx] = row;
-  });
-
-  return grid;
 };
+
+export default undoable(game, {
+  limit: 1,
+  initTypes: ['@@redux-undo/INIT', INIT_GAME, RESET_GAME],
+});

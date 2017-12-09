@@ -1,13 +1,8 @@
-import { persistCombineReducers } from 'redux-persist';
-import storage from 'redux-persist/es/storage';
-
+import { combineReducers } from 'redux';
 import game from './game';
 
-const config = {
-  key: 'root',
-  storage,
-};
-
-const reducers = persistCombineReducers(config, { game });
+const reducers = combineReducers({
+    game
+});
 
 export default reducers;

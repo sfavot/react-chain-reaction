@@ -141,7 +141,7 @@ class GameSettings extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {players, rows, cols} = state.game;
+  const {players, rows, cols} = state.game.present;
 
   return {
     players,

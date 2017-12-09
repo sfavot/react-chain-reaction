@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { rows, cols, players, grid, currentPlayer, gameEnded } = state.game;
+  const { rows, cols, players, grid, currentPlayer, gameEnded } = state.game.present;
   const logic = new GameLogic(rows, cols, players, grid);
   return {
     status: grid[ownProps.x][ownProps.y],

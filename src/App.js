@@ -5,6 +5,7 @@ import './App.css';
 import GameGrid from './components/GameGrid';
 import GameSettings from './components/GameSettings';
 import Ball from './components/Ball';
+import HistoryButtons from './components/HistoryButtons';
 import { resetGame } from './actions/game';
 
 class App extends React.Component {
@@ -37,7 +38,7 @@ class App extends React.Component {
           </div>
           <h1 className="title">Welcome to React Chain Reaction</h1>
         </header>
-        <div ref={x => this.settings = x} className="settings">
+        <div ref={x => this.settings = x} className="app-settings">
           <div className="settings-wrapper">
             <h2 className="no-margin">Settings</h2>
             <GameSettings show={this.state.showSettings} />
@@ -50,6 +51,7 @@ class App extends React.Component {
             : <span>{`Player ${this.props.currentPlayer + 1} turn.`}</span>
           }
         </p>
+        <HistoryButtons />
         <GameGrid />
         <div className="footer">
           <button onClick={this.props.reset}>
@@ -71,8 +73,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentPlayer: state.game.currentPlayer,
-    gameEnded: state.game.gameEnded,
+    currentPlayer: state.game.present.currentPlayer,
+    gameEnded: state.game.present.gameEnded,
   }
 };
 

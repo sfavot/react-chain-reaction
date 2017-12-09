@@ -41,10 +41,11 @@ GameGrid.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  const { cols, rows, currentPlayer, players } = state.game.present;
   return {
-    cols: state.game.cols,
-    rows: state.game.rows,
-    currentPlayer: state.game.currentPlayer === -1 ? null : state.game.players[state.game.currentPlayer],
+    cols: cols,
+    rows: rows,
+    currentPlayer: currentPlayer === -1 ? null : players[currentPlayer],
   };
 }
 
