@@ -1,5 +1,6 @@
 {
   "name": "chain-reaction",
+  "homepage": "https://sfavot.github.io/react-chain-reaction",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
