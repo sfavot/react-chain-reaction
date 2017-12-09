@@ -31,7 +31,7 @@ export default function (state = INITIAL_STATE, action) {
     }
     case RESET_GAME: {
       const grid = createEmptyGrid(state.rows, state.cols);
-      const players = {...state.players};
+      const players = state.players;
       players.forEach(player => {
         player.alive = true;
       });
