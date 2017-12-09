@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import logo from './logo.svg';
 import './App.css';
 import GameGrid from './components/GameGrid';
 import GameSettings from './components/GameSettings';
+import Ball from './components/Ball';
 import { resetGame } from './actions/game';
 
 class App extends React.Component {
@@ -26,7 +26,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <div className="App-logo">
+            <Ball color="#FF0000" clicksToBlow={3} />
+          </div>
+          <div className="App-logo">
+            <Ball color="#1EF127" clicksToBlow={3} />
+          </div>
+          <div className="App-logo">
+            <Ball color="#0099ff" clicksToBlow={3} />
+          </div>
           <h1 className="App-title">Welcome to React Chain Reaction</h1>
         </header>
         <div ref={x => this.settings = x} className="App-settings">

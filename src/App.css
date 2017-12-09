@@ -4,8 +4,8 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  display: inline-block;
+  animation: App-logo-spin infinite 3s linear;
 }
 
 .App-header {
@@ -84,14 +84,43 @@ input[type=color] {
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;
   border-top: 30px solid grey;
-  position: absolute;
-  left: 48%;
   cursor: pointer;
+  margin: auto;
 }
 
 .App-intro {
   font-size: large;
   margin-top: 20px;
+}
+
+.game-grid {
+  margin: auto;
+  border: 3px solid grey;
+  display: inline-block;
+}
+
+.game-line {
+  height: auto;
+}
+
+.game-cell {
+    height: 60px;
+    width: 60px;
+    background-color: black;
+    display: inline-block;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    vertical-align: bottom;
+}
+
+.ball {
+  display: block;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  min-height: 20px;
+  min-width: 20px;
+  margin: 10px 10px;
 }
 
 @keyframes App-logo-spin {

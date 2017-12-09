@@ -2,18 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import tinycolor from 'tinycolor2';
 
-const baseBallStyle = {
-  display: 'block',
-  borderRadius: '50%',
-  position: 'relative',
-  height: '40px',
-  width: '40px',
-  margin: '10px 10px',
-};
-
 const Ball = ({color, clicksToBlow}) => {
-  const ballStyle = {...baseBallStyle};
-  ballStyle.background = `radial-gradient(circle at 30% 30%, ${color}, black)`;
+  const ballStyle = {
+    background: `radial-gradient(circle at 30% 30%, ${color}, black)`,
+  };
 
   if (clicksToBlow === 2) {
     const gradientColor = tinycolor(color).darken(20).toString();
@@ -23,7 +15,7 @@ const Ball = ({color, clicksToBlow}) => {
   }
 
   return (
-    <figure style={ballStyle}></figure>
+    <figure className="ball" style={ballStyle}></figure>
   );
 };
 

@@ -6,29 +6,19 @@ import { clickCell } from '../actions/game';
 import GameLogic from '../config/GameLogic';
 import Ball from './Ball';
 
-const baseCellStyle = {
-  height: '60px',
-  width: '60px',
-  backgroundColor: 'black',
-  display: 'inline-block',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: 'grey',
-  boxSizing: 'border-box',
-  verticalAlign: 'bottom',
-};
-
 const GameCell = ({
   clickCell, x, y, status, players, currentPlayer, clicksToBlow,
-  gameEnded,
+  gameEnded
 }) => {
-  const cellStyle = {...baseCellStyle};
+  const cellStyle = {
+    borderColor: 'grey',
+  };
   if (!!currentPlayer) {
     cellStyle.borderColor = currentPlayer.color;
   }
 
   return (
-    <div onClick={gameEnded ? null : clickCell} style={cellStyle}>
+    <div className="game-cell" onClick={gameEnded ? null : clickCell} style={cellStyle}>
       {status.player !== -1
         ? <Ball
           color={players[status.player].color}

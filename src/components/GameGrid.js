@@ -5,29 +5,19 @@ import { connect } from 'react-redux';
 
 import GameCell from './GameCell';
 
-const gridStyle = {
-  margin: 'auto',
-  borderWidth: '3px',
-  borderStyle: 'solid',
-  borderColor: 'grey',
-  display: 'inline-block',
-};
-
-const lineStyle = {
-  height: 'auto',
-};
-
 const GameGrid = (props) => {
-  const style = {...gridStyle};
+  const style = {
+    borderColor: 'grey',
+  };
   if (!!props.currentPlayer) {
     style.borderColor = props.currentPlayer.color;
   }
 
   return (
-    <div style={style}>
+    <div className="game-grid" style={style}>
       {range(props.rows).map(row => {
         return (
-          <div key={`row-${row}`} style={lineStyle}>
+          <div className="game-line" key={`row-${row}`}>
             {range(props.cols).map(col => {
               return (
                 <GameCell
