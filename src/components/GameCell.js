@@ -13,12 +13,17 @@ const GameCell = ({
   const cellStyle = {
     borderColor: 'grey',
   };
-  if (!!currentPlayer) {
-    cellStyle.borderColor = currentPlayer.color;
+  if (currentPlayer !== -1) {
+    cellStyle.borderColor = players[currentPlayer].color;
   }
 
+  const onCellClick = gameEnded || (status.player !== -1 && status.player !== currentPlayer)
+    ? null
+    : clickCell
+  ;
+
   return (
-    <div className="game-cell" onClick={gameEnded ? null : clickCell} style={cellStyle}>
+    <div className="game-cell" onClick={onCellClick} style={cellStyle}>
       {status.player !== -1
         ? <Ball
           color={players[status.player].color}
@@ -36,7 +41,7 @@ GameCell.propTypes = {
   clickCell: PropTypes.func,
   status: PropTypes.object,
   players: PropTypes.array,
-  currentPlayer: PropTypes.object,
+  currentPlayer: PropTypes.number,
   clicksToBlow: PropTypes.number,
 };
 
@@ -54,7 +59,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     status: grid[ownProps.x][ownProps.y],
     players: players,
-    currentPlayer: currentPlayer === -1 ? null : players[currentPlayer],
+    currentPlayer: currentPlayer,
     clicksToBlow: logic.cellWillBlowIn(ownProps.x, ownProps.y),
     gameEnded,
   };
