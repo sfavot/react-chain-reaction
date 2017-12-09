@@ -2,7 +2,7 @@
 
 A chain reaction game in React, just because.
 
-You can try it out [here](https://sfavot.github.io/react-chain-reaction/); 
+You can try it out [here](https://sfavot.github.io/react-chain-reaction/).
 
 Built with create-react-app, uses redux for storage, css animations, redux-undo for undoing actions.
 
