@@ -8,7 +8,7 @@ const PLAYERS = [
     color: 'red',
   },
   {
-    color: 'green',
+    color: '#1EF127',
   },
 ];
 

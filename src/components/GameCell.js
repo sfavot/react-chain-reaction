@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { clickCell } from '../actions/game';
+import GameLogic from '../config/GameLogic';
+import Ball from './Ball';
 
-const cellStyle = {
+const baseCellStyle = {
   height: '60px',
   width: '60px',
   backgroundColor: 'black',
@@ -16,18 +18,21 @@ const cellStyle = {
   verticalAlign: 'bottom',
 };
 
-const GameCell = ({clickCell, x, y, status, players, currentPlayer}) => {
-  const style = {...cellStyle};
-  if (status.player !== -1) {
-    style.backgroundColor = players[status.player].color;
-  }
+const GameCell = ({clickCell, x, y, status, players, currentPlayer, clicksToBlow}) => {
+  const cellStyle = {...baseCellStyle};
   if (!!currentPlayer) {
-    style.borderColor = currentPlayer.color;
+    cellStyle.borderColor = currentPlayer.color;
   }
 
   return (
-    <div onClick={clickCell} style={style}>
-      {status.clicked > 0 ? status.clicked : ''}
+    <div onClick={clickCell} style={cellStyle}>
+      {status.player !== -1
+        ? <Ball
+          color={players[status.player].color}
+          clicksToBlow={clicksToBlow}
+        />
+        : null
+      }
     </div>
   )
 };
@@ -39,6 +44,7 @@ GameCell.propTypes = {
   status: PropTypes.object,
   players: PropTypes.array,
   currentPlayer: PropTypes.object,
+  clicksToBlow: PropTypes.number,
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -50,10 +56,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const { rows, cols, players, grid, currentPlayer } = state.game;
+  const logic = new GameLogic(rows, cols, players, grid);
   return {
-    status: state.game.grid[ownProps.x][ownProps.y],
-    players: state.game.players,
-    currentPlayer: state.game.currentPlayer === -1 ? null : state.game.players[state.game.currentPlayer],
+    status: grid[ownProps.x][ownProps.y],
+    players: players,
+    currentPlayer: currentPlayer === -1 ? null : players[currentPlayer],
+    clicksToBlow: logic.cellWillBlowIn(ownProps.x, ownProps.y),
   };
 }
 

@@ -42,7 +42,7 @@ export default class GameLogic {
 
   activateCell = (x, y) => {
     // If cell is not gonna blow we just increase clicks number
-    if (!this.cellShoudBlow(x, y)) {
+    if (this.cellWillBlowIn(x, y) > 1) {
       this.increaseCellClicks(x, y);
       return;
     }
@@ -72,23 +72,19 @@ export default class GameLogic {
     });
   }
 
-  cellShoudBlow = (x, y) => {
+  cellWillBlowIn = (x, y) => {
     const cell = this.grid[x][y];
 
-    if (!cell) {
-      console.log('not found', x, y, this.grid);
-    }
-
     if (this.isCorner(x, y)) {
-      return cell.clicked === 1;
+      return 2 - cell.clicked;
     }
 
     if (this.isSide(x, y)) {
-      return cell.clicked === 2;
+      return 3 - cell.clicked;
     }
 
-    return cell.clicked === 3;
-  };
+    return 4 - cell.clicked;
+  }
 
   isCorner = (x, y) => {
     if (x !== 0 && x !== this.rows - 1) {
