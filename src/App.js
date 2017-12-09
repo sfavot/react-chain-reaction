@@ -24,34 +24,34 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <div className="App-logo">
+      <div className="app">
+        <header className="header">
+          <div className="logo">
             <Ball color="#FF0000" clicksToBlow={3} className="large-ball" />
           </div>
-          <div className="App-logo">
+          <div className="logo">
             <Ball color="#1EF127" clicksToBlow={3} className="large-ball" />
           </div>
-          <div className="App-logo">
+          <div className="logo">
             <Ball color="#0099ff" clicksToBlow={3} className="large-ball" />
           </div>
-          <h1 className="App-title">Welcome to React Chain Reaction</h1>
+          <h1 className="title">Welcome to React Chain Reaction</h1>
         </header>
-        <div ref={x => this.settings = x} className="App-settings">
+        <div ref={x => this.settings = x} className="settings">
           <div className="settings-wrapper">
             <h2 className="no-margin">Settings</h2>
             <GameSettings show={this.state.showSettings} />
           </div>
           <div onClick={this.toggleSettings} className="settings-toggle" />
         </div>
-        <p className="App-intro">
+        <p className="intro">
           {this.props.gameEnded
             ? <span className="victory">{`Player ${this.props.currentPlayer + 1} won!`}</span>
             : <span>{`Player ${this.props.currentPlayer + 1} turn.`}</span>
           }
         </p>
         <GameGrid />
-        <div className="App-footer">
+        <div className="footer">
           <button onClick={this.props.reset}>
             Reset game
           </button>
