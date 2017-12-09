@@ -4,9 +4,12 @@ export default class GameLogic {
   constructor(rows, cols, players, grid) {
     this.rows = rows;
     this.cols = cols;
+    this.currentPlayer = -1;
+
+    // Those need to be recreated to make sure it's immutable
     this.players = players;
     this.grid = grid;
-    this.currentPlayer = -1;
+
     this.x = -1;
     this.y = -1;
     this.turn = 0;
@@ -74,7 +77,10 @@ export default class GameLogic {
   }
 
   activateCell = (x, y) => {
-    if (this.cellsActivated > 100) {
+    if (this.cellsActivated > 1000) {
+      if (!this.hasGameEnded()) {
+        throw Error('Too many cells blew, the game can\'t take it.');
+      }
       return;
     }
 

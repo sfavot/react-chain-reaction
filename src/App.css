@@ -26,7 +26,7 @@
   font-size: 1.5em;
 }
 
-.settings {
+.app-settings {
   margin-bottom: 40px;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .settings.visible {
-  max-height: 500px;
+  max-height: 50000px;
   transition: max-height 0.25s ease-in;
 }
 
@@ -188,6 +188,10 @@ input[type=color] {
 
 .footer {
   padding: 20px;
+}
+
+.button-toolbar button {
+  margin-left: 5px;
 }
 
 button {

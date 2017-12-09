@@ -2,8 +2,8 @@ export const INIT_GAME = 'INIT_GAME';
 export const RESET_GAME = 'RESET_GAME';
 export const CLICK_CELL = 'CLICK_CELL';
 
-const ROWS = 4;
-const COLS = 4;
+const ROWS = 6;
+const COLS = 6;
 const PLAYERS = [
   {
     color: '#FF0000',
